@@ -1,71 +1,116 @@
-﻿@model IEnumerable<MvcCoreEmpleadosSession.Models.Empleado>
+﻿@{
+
+    List<Empleado> empleados =
+
+                memoryCache.Get<List<Empleado>>("FAVORITOS");
+
+}
+
+
 
 @{
-    List<Empleado> empleados = memoryCache.Get<List<Empleado>>("FAVORITOS");
+
     ViewData["Title"] = "EmpleadosFavoritos";
+
 }
+
+
 
 <h1>Empleados Favoritos</h1>
 
+
+
 <img src="~/images/love.png" style="width: 100px; height: 100px" />
 
-<p>
-    <a asp-controller="Empleados"
-        asp-action="SessionEmpleadosOk">
-        Almacenar empleados
-    </a>
-</p>
-@if (empleados == null)
-{
-    <h2>No existe empleados favoritos</h2>
-}
-<h2 style="color:red">
-    @ViewData["MENSAJE"]
-</h2>
 
-@if (Model != null)
+
+<p>
+
+    <a asp-controller="Empleados"
+       asp-action="SessionEmpleadosOk">
+
+        Almacenar empleados
+
+    </a>
+
+</p>
+
+
+
+@if (empleados == null)
+
 {
-    <table class="table table-bordered table-danger">
-        <thead>
-            <tr>
-                <th></th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdEmpleado)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Apellido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Oficio)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Salario)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdEmpleado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Apellido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Oficio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Salario)
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+
+    <h2 style="color:red">
+
+        No existen empleados favoritos
+
+    </h2>
+
 }
+
+
+
+@if (empleados != null)
+
+{
+
+    <table class="table table-bordered table-danger">
+
+        <thead>
+
+            <tr>
+
+                <th>APELLIDO</th>
+
+                <th>OFICIO</th>
+
+                <th>SALARIO</th>
+
+                <th></th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in empleados)
+
+            {
+
+                <tr>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Apellido)
+
+                    </td>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Oficio)
+
+                    </td>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Salario)
+
+                    </td>
+
+                    <td>
+                    </td>
+
+                </tr>
+
+            }
+
+        </tbody>
+
+    </table>
+
+}
+
 
 
